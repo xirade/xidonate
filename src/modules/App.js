@@ -1,10 +1,13 @@
 class App {
-  #block;
-  constructor(block) {
-    this.#block = block;
+  #blocks;
+  constructor(blocks) {
+    this.#blocks = blocks;
   }
   run() {
-    document.body.append(this.#block);
+    console.log(this.#blocks)
+    this.#blocks.forEach((block) => {
+      document.body.append(block);
+    });
   }
 }
 
