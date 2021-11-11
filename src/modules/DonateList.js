@@ -43,7 +43,7 @@ class DonateList {
 
   updateDonates(updatedDonates) {
     const listDonatesHTML = updatedDonates.map((donate) =>
-      this.createDonate(donate)
+      this.#createDonate(donate)
     );
     this.#divDonate.append(...listDonatesHTML);
     return this.#render(this.#divDonate);
