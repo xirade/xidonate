@@ -14,7 +14,6 @@ class DonateList {
   }
 
   constructor(donates) {
-    this.isHidden = false;
     this.#donates = donates;
     this.#container = document.createElement("div");
     this.#container.className = "donates-container";
@@ -43,17 +42,16 @@ class DonateList {
 
   updateDonates(updatedDonates) {
     const listDonatesHTML = updatedDonates.map((donate) =>
-      this.createDonate(donate)
+      this.#createDonate(donate)
     );
     this.#divDonate.append(...listDonatesHTML);
     return this.#render(this.#divDonate);
   }
 
   #render(div) {
-    if (this.isHidden) {
+    if (this.#donates.length) {
       this.#divDonate.querySelector(".default-text").hidden = true;
     }
-    this.isHidden = true;
     this.#container.append(div);
     return this.#container;
   }
