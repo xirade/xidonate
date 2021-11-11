@@ -1,4 +1,4 @@
-import coin from "@/assets/coin.png";
+import {Settings as set} from '@/core/constants/settings.js'
 
 class DonateForm {
   #form;
@@ -13,10 +13,10 @@ class DonateForm {
     this.#form.innerHTML = `
             <div class="total-container">
               <h2 id="total-amount">${this.#totalAmount}</h1>
-              <img src="${coin}" alt="coin" />
+              <img src="${set.coin}" alt="coin" />
             </div>
             <label for="amount" class="donate-form__input-label"> 
-                Введите сумму в $
+                Введите сумму в ${set.currency}
             </label>
             <input class="donate-form__donate-input" name="amount" type="number" max="100" min="0" required="">
             <button class="donate-form__submit-button" type="submit"> 

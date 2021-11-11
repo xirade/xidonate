@@ -1,3 +1,5 @@
+import { Settings as set } from "@/core/constants/settings.js";
+
 class DonateList {
   #container;
   #divDonate;
@@ -28,7 +30,7 @@ class DonateList {
     const item = document.createElement("div");
     item.className = "donate-item";
     item.innerHTML = `
-     ${donate.date} - <b>${donate.amount}$</b>
+     ${donate.date} - <b>${donate.amount}${set.currency}</b>
  `;
     return item;
   }
