@@ -1,4 +1,4 @@
-import {Settings as set} from '@/core/constants/settings.js'
+import set from "@/core/constants/settings.js";
 
 class DonateForm {
   #form;
@@ -8,6 +8,30 @@ class DonateForm {
   constructor(totalAmount, createNewDonate) {
     this.#createNewDonate = createNewDonate;
     this.#totalAmount = totalAmount;
+  }
+
+  #handleSubmit(event) {
+    {
+      event.preventDefault();
+
+      let donateInput = event.target.amount.value;
+      const donateValue = Number(donateInput);
+      const donate = {
+        date: new Date(),
+        amount: donateValue,
+      };
+      donateInput = "";
+
+      this.#createNewDonate(donate);
+    }
+  }
+
+  updateTotalAmount(newAmount) {
+    const totalAmountHTML = document.querySelector("#total-amount");
+    totalAmountHTML.textContent = `${newAmount}`;
+  }
+
+  render() {
     this.#form = document.createElement("form");
     this.#form.className = "donate-form";
     this.#form.innerHTML = `
@@ -25,34 +49,7 @@ class DonateForm {
         `;
 
     this.#form.addEventListener("submit", (e) => this.#handleSubmit(e));
-  }
-  get createForm() {
     return this.#form;
-  }
-
-  #handleSubmit(event) {
-    {
-      event.preventDefault();
-
-      const donateInput = this.#form.querySelector(
-        ".donate-form__donate-input"
-      );
-      const donateValue = Number(donateInput.value);
-      this.#totalAmount += donateValue;
-      const donate = {
-        date: new Date(),
-        amount: donateValue,
-      };
-      donateInput.value = "";
-
-      this.#createNewDonate(donate);
-      this.updateTotalAmount(this.#totalAmount);
-    }
-  }
-
-  updateTotalAmount(newAmount) {
-    const totalAmountHTML = document.querySelector("#total-amount");
-    totalAmountHTML.textContent = `${newAmount}`;
   }
 }
 

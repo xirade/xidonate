@@ -5,4 +5,4 @@ const Settings = {
   coin: `${coin}`,
 };
 
-export { Settings };
+export default Settings ;

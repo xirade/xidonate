@@ -4,14 +4,17 @@ import * as utils from "@/core/utils/utils";
 
 class App {
   #state;
+  #list;
+  #form;
   constructor(donates = [], totalAmount = 0) {
     this.#state = {
       donates: donates,
-      totalAmount: utils.calculateSumOfNumbers(donates) || totalAmount,
+      totalAmount: totalAmount,
     };
+    this.#state.totalAmount = utils.calculateSumOfNumbers(donates);
     this.#formattedDonates();
-    this.list = new DonateList(this.#state.donates);
-    this.form = new DonateForm(
+    this.#list = new DonateList(this.#state.donates);
+    this.#form = new DonateForm(
       this.#state.totalAmount,
       this.createNewDonate.bind(this)
     );
@@ -38,20 +41,18 @@ class App {
   createNewDonate(newDonate) {
     newDonate.date = utils.getFormattedTime(newDonate.date);
     this.#state.donates.push(newDonate);
-    const input = document.querySelector('[name="amount"]');
-    this.#state.totalAmount = input.value;
+    this.#state.totalAmount += newDonate.amount;
 
-    this.list.updateDonate(newDonate);
-    this.form.updateTotalAmount(input.value);
+    this.#list.updateDonate(newDonate);
+    this.#form.updateTotalAmount(this.#state.totalAmount);
     this.#scrollDownDonates();
   }
 
   run() {
-    const list = [
-      this.form.createForm,
-      this.list.updateDonates(this.#state.donates),
-    ];
-    document.body.append(...list);
+    document.body.append(
+      this.#form.render(),
+      this.#list.updateDonates(this.#state.donates)
+    );
   }
 }
 

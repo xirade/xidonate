@@ -1,4 +1,4 @@
-import { Settings as set } from "@/core/constants/settings.js";
+import set from "@/core/constants/settings.js";
 
 class DonateList {
   #container;
